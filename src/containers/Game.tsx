@@ -33,9 +33,8 @@ const styles = StyleSheet.create({
   container: {
     width: windowWidth,
     height: windowHeight,
-    display: 'flex',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
   },
   score: {
     color: 'white',
@@ -61,30 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: windowWidth,
     height: windowHeight,
-  },
-  topRight: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 320,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  topLeft: {
-    borderTopLeftRadius: 320,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  bottomRight: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 320,
-  },
-  bottomLeft: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 320,
-    borderBottomRightRadius: 20,
   },
 });
 export default Game;

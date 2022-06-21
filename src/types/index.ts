@@ -6,4 +6,5 @@ export interface ITile {
   color: string;
   sound: Sound;
   active: Boolean; //Use to highlight the tile accordinly
+  position: string;
 }

@@ -15,5 +15,5 @@ export const BLUE = 'BLUE';
 export const GREEN = 'GREEM';
 export const YELLOW = 'YELLOW';
 
-export const SONG_DELAY_TIME: number = 200;
-export const NEXT_ROUND_DELAY_TIME: number = 300;
+export const SONG_DELAY_TIME: number = 300;
+export const NEXT_ROUND_DELAY_TIME: number = 1500;
