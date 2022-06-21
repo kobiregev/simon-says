@@ -5,43 +5,47 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import Tile from '../components/Tile/Tile';
-import {tileOptions} from '../constants/constants';
+import Tile, {TileHandle} from '../components/Tile/Tile';
+import {
+  defaultTileOptions,
+  NEXT_ROUND_DELAY_TIME,
+} from '../constants/constants';
 import {ITile} from '../types';
 import {getRandomNumber} from '../utils/getRandomNumber';
+import sleep from '../utils/sleep';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-// TODO: Move to another file utils
-// Sound files
-
 const Game = () => {
   const [startGame, setStartGame] = useState(false);
-  // create sequnces to play by simon,
+  const [tileOptions, setTileOptions] = useState(defaultTileOptions);
+  const [playCounter, setPlayCounter] = useState(0);
   const [sequences, setSequence] = useState([
     getRandomNumber(tileOptions.length - 1),
   ]);
-  //   const soundLoaded =
-  //check if first play to load sounds
-  const firstPlay: boolean = tileOptions.length === 1;
 
-  //testing sound works
-  // TODO: CREATE CONSTANTS TO COLORS SOUNDS.
-  const redTileRef = useRef();
-  const greenTileRef = useRef();
-  const blueTileRef = useRef();
-  const yellowTileRef = useRef();
-
-  let playingIndex: number = 0;
+  const redTileRef = useRef<TileHandle>();
+  const greenTileRef = useRef<TileHandle>();
+  const blueTileRef = useRef<TileHandle>();
+  const yellowTileRef = useRef<TileHandle>();
 
   // loops over sequences and plays the sounds
-  const playSequence = () => {
-    sequences.forEach(index => {
-      console.log(tileOptions[index]);
-
+  const playSequence = async () => {
+    for (let i = 0; i < sequences.length; i++) {
+      const index = sequences[i];
+      setTileOptions(prevState => {
+        prevState[index].active = true;
+        return [...prevState];
+      });
       playPause(tileOptions[index]);
-    });
+      await sleep(200);
+      setTileOptions(prevState => {
+        prevState[index].active = false;
+        return [...prevState];
+      });
+    }
   };
   const handleGameStart = (): void => {
     setStartGame(true);
@@ -63,15 +67,28 @@ const Game = () => {
     // load sounds for first time
     if (startGame) {
       playSequence();
+      console.log(sequences);
     }
-    // return () => {
-    // };
   }, [sequences, startGame]);
 
-  // will be called inside tile after playing the sound.
-  // checks if player pressed the correct tile by comparing the ids of the sequnce by current index.
-  // if users pressed the wrong tile, show modal to collect user information.
-  //   const onTilePress = () => {};
+  const handleTilePress = async tile => {
+    // play the sound
+    playPause(tile);
+    const tileIndex = tileOptions.findIndex(t => t.id === tile.id);
+    // check if pressed the correct tile
+    if (!(tileIndex === sequences[playCounter])) {
+      Alert.alert('Wrong tile Pressed');
+      return;
+    }
+    // if done
+    if (playCounter === sequences.length - 1) {
+      await sleep(NEXT_ROUND_DELAY_TIME);
+      setSequence([...sequences, getRandomNumber(tileOptions.length - 1)]);
+      setPlayCounter(0);
+    } else {
+      setPlayCounter(prevCounter => (prevCounter += 1));
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -82,34 +99,40 @@ const Game = () => {
           </TouchableOpacity>
         </View>
       )}
-      <Tile
-        color={tileOptions[0].color}
-        id={tileOptions[0].id}
-        sound={tileOptions[0].sound}
-        onTilePress={() => playPause(tileOptions[0])}
-        ref={redTileRef}
-      />
-      <Tile
-        color={tileOptions[1].color}
-        id={tileOptions[1].id}
-        sound={tileOptions[1].sound}
-        onTilePress={() => playPause(tileOptions[1])}
-        ref={blueTileRef}
-      />
-      <Tile
-        color={tileOptions[2].color}
-        id={tileOptions[2].id}
-        sound={tileOptions[2].sound}
-        onTilePress={() => playPause(tileOptions[2])}
-        ref={greenTileRef}
-      />
-      <Tile
-        color={tileOptions[3].color}
-        id={tileOptions[3].id}
-        sound={tileOptions[2].sound}
-        onTilePress={() => playPause(tileOptions[3])}
-        ref={yellowTileRef}
-      />
+      <View style={styles.tileContainer}>
+        <Tile
+          color={tileOptions[0].color}
+          id={tileOptions[0].id}
+          sound={tileOptions[0].sound}
+          active={tileOptions[0].active}
+          onTilePress={() => handleTilePress(tileOptions[0])}
+          ref={redTileRef}
+        />
+        <Tile
+          color={tileOptions[1].color}
+          id={tileOptions[1].id}
+          sound={tileOptions[1].sound}
+          active={tileOptions[1].active}
+          onTilePress={() => handleTilePress(tileOptions[1])}
+          ref={blueTileRef}
+        />
+        <Tile
+          color={tileOptions[2].color}
+          id={tileOptions[2].id}
+          sound={tileOptions[2].sound}
+          active={tileOptions[2].active}
+          onTilePress={() => handleTilePress(tileOptions[2])}
+          ref={greenTileRef}
+        />
+        <Tile
+          color={tileOptions[3].color}
+          id={tileOptions[3].id}
+          sound={tileOptions[3].sound}
+          active={tileOptions[3].active}
+          onTilePress={() => handleTilePress(tileOptions[3])}
+          ref={yellowTileRef}
+        />
+      </View>
     </View>
   );
 };
@@ -117,6 +140,12 @@ const styles = StyleSheet.create({
   container: {
     width: windowWidth,
     height: windowHeight,
+  },
+  tileContainer: {
+    width: 140,
+    flex: 1,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
   },
   playButton: {
     color: 'white',

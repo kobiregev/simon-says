@@ -5,5 +5,6 @@ export interface ITile {
   id: string;
   color: string;
   sound: Sound;
+  active: Boolean; //Use to highlight the tile accordinly
   onTilePress: () => void;
 }
