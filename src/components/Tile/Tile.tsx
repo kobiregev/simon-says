@@ -2,24 +2,30 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import {ITile} from '../../types';
 
-export type TileHandle = {
-  onPress: () => void;
-};
+interface TileProps {
+  tile: ITile;
+  disabled: boolean;
+  onTilePress: () => void;
+}
 
 // TODO:  ACTIVE PROPS HIGHLIGHT THE TILE AND HIGHOFF THE TILE
-const Tile = React.forwardRef<TileHandle, ITile>((props, ref) => {
+const Tile: React.FC<TileProps> = ({
+  tile: {active, color},
+  onTilePress,
+  disabled,
+}): JSX.Element => {
   return (
     <TouchableOpacity
-      ref={ref}
-      onPress={props.onTilePress}
+      disabled={disabled}
+      onPress={onTilePress}
       style={[
-        {backgroundColor: props.color},
+        {backgroundColor: color},
         styles.container,
-        props.active ? styles.active : null,
+        active ? styles.active : null,
       ]}
     />
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {

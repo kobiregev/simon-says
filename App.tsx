@@ -6,7 +6,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import Sound from 'react-native-sound';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Game from './src/containers/Game';
 
