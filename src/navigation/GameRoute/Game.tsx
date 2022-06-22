@@ -1,17 +1,9 @@
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
-import Tiles from '../components/Tile/Tiles';
-import {RootStackParamList} from '../navigation/Routes';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {StyleSheet, View, Text} from 'react-native';
+import Tiles from '../../components/Tile/Tiles';
+import {CustomButton} from '../../components/Common/CustomButton';
+import {RootStackParamList} from '../Routes';
 
 type GameScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Game'>;
 interface GameProps {
@@ -27,9 +19,11 @@ const Game: React.FC<GameProps> = ({navigation}) => {
     <View style={styles.container}>
       {!startGame && (
         <View style={styles.overlay}>
-          <TouchableOpacity onPress={() => setStartGame(true)}>
-            <Text style={styles.playButton}>Play</Text>
-          </TouchableOpacity>
+          <CustomButton
+            textStyle={styles.playButton}
+            text="Play"
+            onPress={() => setStartGame(true)}
+          />
         </View>
       )}
       <View>
@@ -45,21 +39,18 @@ const Game: React.FC<GameProps> = ({navigation}) => {
 };
 const styles = StyleSheet.create({
   container: {
-    width: windowWidth,
-    height: windowHeight,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   score: {
-    color: 'white',
-    fontSize: 22,
+    color: 'black',
+    fontSize: 28,
+    marginTop: 20,
   },
   playButton: {
-    color: 'white',
-    fontWeight: '800',
     fontSize: 32,
-    backgroundColor: 'black',
-    padding: 12,
   },
   overlay: {
     flex: 1,
@@ -69,11 +60,11 @@ const styles = StyleSheet.create({
     color: 'white',
     left: 0,
     top: 0,
-    opacity: 0.5,
+    opacity: 0.7,
     zIndex: 1,
     backgroundColor: 'white',
-    width: windowWidth,
-    height: windowHeight,
+    width: '100%',
+    height: '100%',
   },
 });
 export default Game;

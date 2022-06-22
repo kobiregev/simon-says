@@ -8,42 +8,30 @@ import // SafeAreaView,
 // useColorScheme,
 'react-native';
 import {Routes} from './src/navigation/Routes';
-// import {SafeAreaView} from 'react-native-safe-area-context';
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
-// import Game from './src/containers/Game';
+import persistStore from 'redux-persist/es/persistStore';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store} from './src/store/store';
+import {Provider} from 'react-redux';
 
-// function HomeScreen({navigation}) {
-//   return (
-//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-//       <Text>Home Screen</Text>
-//       <Button
-//         title="Go to Details"
-//         onPress={() => navigation.navigate('Details')}
-//       />
-//     </View>
-//   );
-// }
-// function DetailsScreen() {
-//   return (
-//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-//       <Text>Details Screen</Text>
-//     </View>
-//   );
-// }
+const persistor = persistStore(store);
 
 const App = () => {
   // const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Routes />
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Routes />
+          </PersistGate>
+        </Provider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 };
 
 export default App;
+
 {
   /* <SafeAreaView style={Colors.darker}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />

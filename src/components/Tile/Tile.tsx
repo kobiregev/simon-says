@@ -41,7 +41,7 @@ const styles: Record<string, ViewStyle> = StyleSheet.create({
   },
   active: {
     borderWidth: 3,
-    borderColor: 'white',
+    borderColor: 'black',
     opacity: 1,
   },
   inActive: {
