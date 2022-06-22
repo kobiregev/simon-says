@@ -1,3 +1,4 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -7,12 +8,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Tiles from '../components/Tile/Tiles';
+import {RootStackParamList} from '../navigation/Routes';
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Game = () => {
+type GameScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Game'>;
+interface GameProps {
+  navigation: GameScreenNavigationProp;
+}
+const Game: React.FC<GameProps> = ({navigation}) => {
   const [startGame, setStartGame] = useState(false);
   const [score, setScore] = useState(0);
+  const handleGameOver = (): void => {
+    navigation.replace('Results', {score});
+  };
   return (
     <View style={styles.container}>
       {!startGame && (
@@ -25,7 +35,11 @@ const Game = () => {
       <View>
         <Text style={styles.score}>Score: {score}</Text>
       </View>
-      <Tiles startGame={startGame} setScore={setScore} />
+      <Tiles
+        onGameOver={handleGameOver}
+        startGame={startGame}
+        setScore={setScore}
+      />
     </View>
   );
 };

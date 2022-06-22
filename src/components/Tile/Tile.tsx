@@ -14,7 +14,6 @@ const Tile = React.forwardRef<React.Ref<TouchableOpacity>, TileProps>(
     {tile: {active, color, position}, onTilePress, disabled},
     ref,
   ): JSX.Element => {
-    console.log(active);
     return (
       <TouchableOpacity
         ref={() => ref}

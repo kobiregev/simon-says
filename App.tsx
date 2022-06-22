@@ -1,52 +1,61 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Game from './src/containers/Game';
+import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import // SafeAreaView,
+// ScrollView,
+// StatusBar,
+// useColorScheme,
+'react-native';
+import {Routes} from './src/navigation/Routes';
+// import {SafeAreaView} from 'react-native-safe-area-context';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
+// import Game from './src/containers/Game';
 
-// const redSound = require('./src/assets/audios/red.mp3');
-// const blueSound = require('./src/assets/audios/blue.mp3');
-// const greenSound = require('./src/assets/audios/green.mp3');
-// const yellowSound = require('./src/assets/audios/yellow.mp3');
-
-// export const loadSound = (sound: any) => {
-//   return new Sound(sound, error => {
-//     if (error) {
-//       console.log('failed to load the sound', error);
-//       return;
-//     }
-//   });
-// };
-// export const sounds = {
-//   redSound: loadSound(redSound),
-//   blueSound: loadSound(blueSound),
-//   greenSound: loadSound(greenSound),
-//   yellowSound: loadSound(yellowSound),
-// };
+// function HomeScreen({navigation}) {
+//   return (
+//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+//       <Text>Home Screen</Text>
+//       <Button
+//         title="Go to Details"
+//         onPress={() => navigation.navigate('Details')}
+//       />
+//     </View>
+//   );
+// }
+// function DetailsScreen() {
+//   return (
+//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+//       <Text>Details Screen</Text>
+//     </View>
+//   );
+// }
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  // const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaView style={Colors.darker}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={Colors.darker}>
-        <View
-          style={{
-            backgroundColor: Colors.black,
-          }}>
-          <Game />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
 export default App;
+{
+  /* <SafeAreaView style={Colors.darker}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={Colors.darker}>
+          <View
+            style={{
+              backgroundColor: Colors.black,
+            }}>
+            <Game />
+          </View>
+        </ScrollView>
+      </SafeAreaView> */
+}

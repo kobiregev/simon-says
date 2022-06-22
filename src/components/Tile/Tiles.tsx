@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Sound from 'react-native-sound';
 import {
   BLUE,
@@ -47,9 +47,14 @@ const defaultTileOptions: ITile[] = [
 ];
 interface TileProps {
   startGame: boolean;
+  onGameOver: () => void;
   setScore: (score: number) => void;
 }
-const Tiles: React.FC<TileProps> = ({startGame, setScore}): JSX.Element => {
+const Tiles: React.FC<TileProps> = ({
+  startGame,
+  setScore,
+  onGameOver,
+}): JSX.Element => {
   const [isSimonPlaying, setIsSimonPlaying] = useState<boolean>(false);
   const [tileOptions, setTileOptions] = useState<ITile[]>(defaultTileOptions);
   const [playCounter, setPlayCounter] = useState<number>(0);
@@ -90,7 +95,6 @@ const Tiles: React.FC<TileProps> = ({startGame, setScore}): JSX.Element => {
 
   const handleTilePress = async (tile: ITile) => {
     // play the sound
-
     const tileIndex = tileOptions.findIndex(t => t.id === tile.id);
     playTile(tileIndex);
     // check if pressed the correct tile
@@ -98,7 +102,8 @@ const Tiles: React.FC<TileProps> = ({startGame, setScore}): JSX.Element => {
       tileIndex !== sequences[playCounter] ||
       playCounter === sequences.length
     ) {
-      Alert.alert('Wrong tile Pressed');
+      // Alert.alert('Wrong tile Pressed');
+      onGameOver();
       return;
     }
     // if done
@@ -114,12 +119,10 @@ const Tiles: React.FC<TileProps> = ({startGame, setScore}): JSX.Element => {
 
   useEffect(() => {
     // load sounds for first time
-
     if (startGame) {
       playSequence();
       setScore(sequences.length - 1);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sequences, startGame]);
   useEffect(() => {
