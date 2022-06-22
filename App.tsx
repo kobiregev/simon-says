@@ -1,52 +1,49 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import Game from './src/containers/Game';
+import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import // SafeAreaView,
+// ScrollView,
+// StatusBar,
+// useColorScheme,
+'react-native';
+import {Routes} from './src/navigation/Routes';
+import persistStore from 'redux-persist/es/persistStore';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store} from './src/store/store';
+import {Provider} from 'react-redux';
 
-// const redSound = require('./src/assets/audios/red.mp3');
-// const blueSound = require('./src/assets/audios/blue.mp3');
-// const greenSound = require('./src/assets/audios/green.mp3');
-// const yellowSound = require('./src/assets/audios/yellow.mp3');
-
-// export const loadSound = (sound: any) => {
-//   return new Sound(sound, error => {
-//     if (error) {
-//       console.log('failed to load the sound', error);
-//       return;
-//     }
-//   });
-// };
-// export const sounds = {
-//   redSound: loadSound(redSound),
-//   blueSound: loadSound(blueSound),
-//   greenSound: loadSound(greenSound),
-//   yellowSound: loadSound(yellowSound),
-// };
+const persistor = persistStore(store);
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
+  // const isDarkMode = useColorScheme() === 'dark';
   return (
-    <SafeAreaView style={Colors.darker}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={Colors.darker}>
-        <View
-          style={{
-            backgroundColor: Colors.black,
-          }}>
-          <Game />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Routes />
+          </PersistGate>
+        </Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
 export default App;
+
+{
+  /* <SafeAreaView style={Colors.darker}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={Colors.darker}>
+          <View
+            style={{
+              backgroundColor: Colors.black,
+            }}>
+            <Game />
+          </View>
+        </ScrollView>
+      </SafeAreaView> */
+}
