@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 import {Modal, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  COLOR_BLACK,
+  COLOR_PRIMARY,
+  COLOR_WHITE,
+} from '../../constants/constants';
 import {CustomButton} from '../Common/CustomButton';
 
 interface ResultsModalProps {
@@ -55,6 +60,7 @@ const styles = StyleSheet.create({
   },
   centerText: {
     textAlign: 'center',
+    color: COLOR_BLACK,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -63,15 +69,16 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     padding: 10,
+    color: COLOR_BLACK,
   },
   button: {
-    backgroundColor: '#817ffe',
+    backgroundColor: COLOR_PRIMARY,
     marginVertical: 4,
     padding: 10,
   },
 
   buttonText: {
-    color: '#ffffff',
+    color: COLOR_WHITE,
     fontWeight: 'bold',
     fontSize: 16,
   },

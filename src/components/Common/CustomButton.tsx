@@ -9,7 +9,11 @@ import {
   TextStyle,
 } from 'react-native';
 import {GenericTouchableProps} from 'react-native-gesture-handler/lib/typescript/components/touchables/GenericTouchable';
-import {COLOR_DISABLED, COLOR_PRIMARY} from '../../constants/constants';
+import {
+  COLOR_DISABLED,
+  COLOR_PRIMARY,
+  COLOR_WHITE,
+} from '../../constants/constants';
 
 type Position = 'top' | 'bottom';
 
@@ -41,6 +45,7 @@ export const CustomButton: React.FC<
         getButtonPosition(),
         disabled && styles.disabledButton,
       ]}
+      disabled={disabled}
       {...props}>
       <Text style={[styles.text, textStyle]}>{text}</Text>
     </TouchableOpacity>
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    color: '#ffffff',
+    color: COLOR_WHITE,
     fontWeight: 'bold',
     fontSize: 18,
   },

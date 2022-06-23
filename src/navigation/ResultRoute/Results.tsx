@@ -10,6 +10,7 @@ import {IAppState, IScore} from '../../Redux/types';
 import {ScoreList} from '../../components/Score/ScoreList';
 import {setScore} from '../../Redux/Actions/scoreActions';
 import {CustomButton} from '../../components/Common/CustomButton';
+import {COLOR_BLACK} from '../../constants/constants';
 
 type ResultScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -66,6 +67,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginTop: 20,
+    color: COLOR_BLACK,
   },
   playAgainBtn: {
     width: '90%',

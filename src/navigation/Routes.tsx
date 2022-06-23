@@ -1,6 +1,12 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../constants/constants';
+import {
+  COLOR_WHITE,
+  ROUTE_GAME,
+  ROUTE_RESULTS,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH,
+} from '../constants/constants';
 import Game from './GameRoute/Game';
 import {Results} from './ResultRoute/Results';
 interface RoutesProps {}
@@ -18,15 +24,15 @@ export const Routes: React.FC<RoutesProps> = ({}): JSX.Element => {
       screenOptions={{
         header: () => null,
         cardStyle: {
-          backgroundColor: '#ffffff',
+          backgroundColor: COLOR_WHITE,
           width: WINDOW_WIDTH,
           height: WINDOW_HEIGHT,
           alignSelf: 'center',
         },
       }}
-      initialRouteName="Game">
-      <Stack.Screen name="Game" component={Game} />
-      <Stack.Screen name="Results" component={Results} />
+      initialRouteName={ROUTE_GAME}>
+      <Stack.Screen name={ROUTE_GAME} component={Game} />
+      <Stack.Screen name={ROUTE_RESULTS} component={Results} />
     </Stack.Navigator>
   );
 };

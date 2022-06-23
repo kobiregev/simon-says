@@ -4,6 +4,8 @@ import {StyleSheet, View, Text} from 'react-native';
 import Tiles from '../../components/Tile/Tiles';
 import {CustomButton} from '../../components/Common/CustomButton';
 import {RootStackParamList} from '../Routes';
+import {COLOR_BLACK} from '../../constants/constants';
+import {Overlay} from '../../components/Common/Overlay';
 
 type GameScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Game'>;
 interface GameProps {
@@ -18,13 +20,13 @@ const Game: React.FC<GameProps> = ({navigation}) => {
   return (
     <View style={styles.container}>
       {!startGame && (
-        <View style={styles.overlay}>
+        <Overlay>
           <CustomButton
             textStyle={styles.playButton}
             text="Play"
             onPress={() => setStartGame(true)}
           />
-        </View>
+        </Overlay>
       )}
       <View>
         <Text style={styles.score}>Score: {score}</Text>
@@ -45,26 +47,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   score: {
-    color: 'black',
+    color: COLOR_BLACK,
     fontSize: 28,
     marginTop: 20,
   },
   playButton: {
     fontSize: 32,
-  },
-  overlay: {
-    flex: 1,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    left: 0,
-    top: 0,
-    opacity: 0.7,
-    zIndex: 1,
-    backgroundColor: 'white',
-    width: '100%',
-    height: '100%',
   },
 });
 export default Game;

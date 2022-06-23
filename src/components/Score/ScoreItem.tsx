@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {COLOR_BLACK} from '../../constants/constants';
 import {IScore} from '../../Redux/types';
 
 interface ScoreItemProps {
@@ -12,10 +13,10 @@ export const ScoreItem: React.FC<ScoreItemProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text>{name}</Text>
+        <Text style={styles.text}>{name}</Text>
       </View>
       <View style={styles.textContainer}>
-        <Text>{score}</Text>
+        <Text style={styles.text}>{score}</Text>
       </View>
     </View>
   );
@@ -30,5 +31,8 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    color: COLOR_BLACK,
   },
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, ViewStyle, View} from 'react-native';
+import {COLOR_BLACK} from '../../constants/constants';
 import {ITile} from '../../types';
 
 interface TileProps {
@@ -8,7 +9,6 @@ interface TileProps {
   onTilePress: () => void;
 }
 
-// TODO:  ACTIVE PROPS HIGHLIGHT THE TILE AND HIGHOFF THE TILE
 const Tile = React.forwardRef<React.Ref<TouchableOpacity>, TileProps>(
   (
     {tile: {active, color, position}, onTilePress, disabled},
@@ -41,7 +41,7 @@ const styles: Record<string, ViewStyle> = StyleSheet.create({
   },
   active: {
     borderWidth: 3,
-    borderColor: 'black',
+    borderColor: COLOR_BLACK,
     opacity: 1,
   },
   inActive: {

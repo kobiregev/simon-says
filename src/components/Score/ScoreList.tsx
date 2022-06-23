@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {COLOR_BLACK} from '../../constants/constants';
 import {IScore} from '../../Redux/types';
 import {ScoreItem} from './ScoreItem';
 interface ScoreListProps {
@@ -28,6 +29,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontWeight: 'bold',
+    color: COLOR_BLACK,
     fontSize: 18,
+    paddingBottom: 6,
   },
 });
