@@ -70,11 +70,7 @@ const Tiles: React.FC<TileProps> = ({
     }
     // stoping to play mutiple in a row withouth wating for sound to end
     sound.stop();
-    sound.play(success => {
-      if (!success) {
-        console.log('Playing failed');
-      }
-    });
+    sound.play();
   }, []);
 
   const changeTileActivity = (index: number, active: boolean): void => {
@@ -112,10 +108,7 @@ const Tiles: React.FC<TileProps> = ({
     // Play the tile by index
     playTile(tileIndex);
     // check if pressed the correct tile
-    if (
-      tileIndex !== sequences[playCounter] ||
-      playCounter === sequences.length
-    ) {
+    if (tileIndex !== sequences[playCounter]) {
       onGameOver();
       return;
     }
@@ -174,8 +167,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
-    display: 'flex',
     alignContent: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
 });
 
