@@ -14,8 +14,8 @@ export const ScoreList: React.FC<ScoreListProps> = ({scores}): JSX.Element => {
         <Text style={styles.header}>Score</Text>
       </View>
 
-      {scores.map((score, i) => {
-        return <ScoreItem key={i} score={score} />;
+      {scores.map(score => {
+        return <ScoreItem key={score.id} score={score} />;
       })}
     </View>
   );

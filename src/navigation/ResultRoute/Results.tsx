@@ -11,6 +11,7 @@ import {ScoreList} from '../../components/Score/ScoreList';
 import {setScore} from '../../Redux/Actions/scoreActions';
 import {CustomButton} from '../../components/Common/CustomButton';
 import {COLOR_BLACK} from '../../constants/constants';
+import {v4 as uuidv4} from 'uuid';
 
 type ResultScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -36,7 +37,7 @@ export const Results: React.FC<ResultsProps> = ({
   };
 
   const onNameConfirm = (name: string): void => {
-    dispatch(setScore(score, name));
+    dispatch(setScore(uuidv4(), score, name));
     setIsModalOpen(false);
   };
   return (
