@@ -11,6 +11,7 @@ import {ScoreList} from '../../components/Score/ScoreList';
 import {setScore} from '../../Redux/Actions/scoreActions';
 import {CustomButton} from '../../components/Common/CustomButton';
 import {COLOR_BLACK} from '../../constants/constants';
+import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 
 type ResultScreenNavigationProp = StackNavigationProp<
